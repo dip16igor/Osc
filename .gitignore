@@ -1,0 +1,9 @@
+/bakup/
+# Для Android
+AndroidApp/.gradle/
+AndroidApp/build/
+AndroidApp/local.properties
+
+# Для PlatformIO
+ESP32/.pio/
+STM32/.pio/

@@ -1,0 +1,6 @@
+csv
+# Name,   Type, SubType, Offset,      Size
+nvs,      data, nvs,     0x9000,     0x6000
+phy_init, data, phy,     0xf000,     0x1000
+factory,  app,  factory,  0x10000,    0x300000  # 3 MB для приложения
+spiffs,   data, spiffs,   0x310000,    0x9c0000  # 9.9 MB для FATFS (0x9C0000 = 9.9 MB)

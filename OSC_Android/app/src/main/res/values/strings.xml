@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Oscilloscop</string>
+    <string name="hide_settings">Hide Settings</string>
+    <string name="show_settings">Show Settings</string>
+</resources>
