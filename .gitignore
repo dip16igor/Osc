@@ -1,1 +1,36 @@
 /bakup/
+
+# Общие файлы, которые не нужно отслеживать
+*.log
+*~
+.DS_Store
+
+# Файлы Visual Studio Code
+.vscode/
+
+# Файлы PlatformIO
+.pio/
+.piolibdeps/
+
+# Файлы STM32CubeIDE / Eclipse
+.metadata/
+Debug/
+Release/
+*.launch
+*.suo
+*.user
+
+# Файлы Android Studio / Gradle
+.gradle/
+build/
+*.apk
+*.ap_
+*.aab
+local.properties
+captures/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+
