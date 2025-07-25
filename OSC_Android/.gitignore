@@ -13,3 +13,6 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Secret files
+/app/src/main/java/com/dip16/oscilloscop/Secrets.kt
