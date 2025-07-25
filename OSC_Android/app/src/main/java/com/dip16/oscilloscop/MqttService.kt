@@ -36,12 +36,11 @@ class MqttService(
     init {
         //val mqttClientId = "Oscilloscope1"
         val mqttClientId = MqttClient.generateClientId()
-        //mqttClient = MqttClient("tcp://46.8.233.146:1883", mqttClientId, MemoryPersistence()) // Fin
-        mqttClient = MqttClient("tcp://80.211.205.234:1883", mqttClientId, MemoryPersistence()) // Czech
+        mqttClient = MqttClient(Secrets.MQTT_BROKER_URL, mqttClientId, MemoryPersistence())
         mqttOptions = MqttConnectOptions().apply {
             isCleanSession = true
-            userName = "dip16"
-            password = "nirvana7".toCharArray()
+            userName = Secrets.MQTT_USERNAME
+            password = Secrets.MQTT_PASSWORD.toCharArray()
             isAutomaticReconnect = true
             maxReconnectDelay = 2000
         }

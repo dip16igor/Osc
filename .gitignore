@@ -7,3 +7,6 @@ AndroidApp/local.properties
 # Для PlatformIO
 ESP32/.pio/
 STM32/.pio/
+
+# Secrets
+/app/src/main/java/com/dip16/oscilloscop/Secrets.kt
