@@ -18,18 +18,12 @@
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
 
+#include "secrets.h"
+
 #define LED_PIN 48 // Пин, к которому подключена лента WS2812
 #define NUM_LEDS 1 // Количество светодиодов в ленте
 #define LED_TYPE WS2812
 #define COLOR_ORDER GRB
-
-const char *ssidList[] = {"lmvlmv2011", "dip16", "HUAWEI-041D4V"};    // список SSID
-const char *passwordList[] = {"dip16dip16", "0496a6596", "barsik74"}; // список паролей
-
-// const char *mqtt_server = "46.8.233.146"; // Finland
-const char *mqtt_server = "80.211.205.234"; // Chez
-#define login "dip16"
-#define pass "nirvana7"
 
 #define analogPin 1
 // const int numReadings = 20; // Количество отсчетов для усреднения
@@ -523,7 +517,7 @@ uint8_t reconnect()
     String clientId = "ESP32S3-OSC";
     // clientId += String(random(0xffff), HEX);
     //  Attempt to connect
-    if (client.connect(clientId.c_str(), login, pass))
+    if (client.connect(clientId.c_str(), MQTT_LOGIN, MQTT_PASS))
     {
       // TestGreenKey();
       // digitalWrite(LEDGREENLow, 1);
