@@ -1177,27 +1177,41 @@ void handleSPIData()
   spi_slave_transaction_t *completedTrans = NULL;
   esp_err_t ret = spi_slave_get_trans_result(SPI2_HOST, &completedTrans, 0);
 
-  if (ret == ESP_OK && completedTrans)
+  if (ret == ESP_OK && completedTrans) // A transaction has completed
   {
-    size_t bytesReceived = (completedTrans->trans_len + 7) / 8;
+    size_t bytesReceived = completedTrans->trans_len / 8; // trans_len is in bits
+    Serial.printf("SPI: Transaction complete, received %d bytes.\n", bytesReceived);
 
-    if (bytesReceived >= MIN_PACKET_SIZE && bytesReceived <= DMA_BUFFER_SIZE)
+    if (bytesReceived > 0 && bytesReceived <= DMA_BUFFER_SIZE)
     {
+      // For debugging, print the first few bytes of received data
+      Serial.print("SPI: Received data (first 16 bytes, HEX): ");
+      for (int i = 0; i < min((size_t)16, bytesReceived); i++)
+      {
+        Serial.printf("%02X ", spiDMABuffer[i]);
+      }
+      Serial.println();
+
       // Need to buffer the data or process it?
       if (spiBufferIndex + bytesReceived > MAX_SPI_BUFFER)
       {
         // Buffer would overflow, reset buffer index
+        Serial.println("SPI: Buffer overflow! Resetting buffer index.");
         spiBufferIndex = 0;
       }
 
       // Copy new data
       memcpy(spiBuffer + spiBufferIndex, spiDMABuffer, bytesReceived);
       spiBufferIndex += bytesReceived;
+      Serial.printf("SPI: Total buffered bytes: %d\n", spiBufferIndex);
 
-      // Mark as ready if we have accumulated enough data
-      if (spiBufferIndex >= PROCESS_THRESHOLD)
+      // Mark as ready if we have accumulated a full frame
+      if (spiBufferIndex >= sampleSize * 2)
       {
+        Serial.printf("SPI: Full frame of %d bytes received. Marking data as ready.\n", spiBufferIndex);
+        data.assign(spiBuffer, spiBuffer + spiBufferIndex);
         spiDataReady = true;
+        spiBufferIndex = 0; // Reset buffer for the next frame
       }
     }
 
